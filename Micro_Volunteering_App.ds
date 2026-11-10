@@ -1,0 +1,2291 @@
+/*
+ * Author       : yugesh.et.2024.cse_rajala618
+ * Generated on : 10-Nov-2026 22:12:26
+ * Version      : 1.0
+ */
+ application "Micro Volunteering App"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "America/Los_Angeles"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form task_assignment
+		{
+			displayname = "Task Assignment"
+			success message = "Task Assignment Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			task
+			(
+				type = list	
+				displayname = "Task"
+				values  = task_management.ID
+    			displayformat = [task_title]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			volunteer
+			(
+				type = list	
+				displayname = "Volunteer"
+				values  = volunteer_profile.ID
+    			displayformat = [volunteer_name.first_name]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			assignment_date
+			(
+    			type = datetime
+				displayname = "Assignment Date"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			slot_number
+			(
+				type = number
+				displayname = "Slot Number"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			assignment_status
+			(
+				type = picklist
+				displayname = "Assignment Status"
+				values = {"Assigned","Completed","Confirmed","Cancelled"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			notes
+			(
+    			type = textarea
+				displayname = "Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			completion_date
+			(
+    			type = datetime
+				displayname = "Completion Date"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			feedback
+			(
+    			type = textarea
+				displayname = "Feedback"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Assignment Draft","Pending Volunteer Selection","Assignment Cancelled","Volunteers Assigned","Task In Progress","Task Completed","Task On Hold","Pending Feedback","Assignment Closed"}
+			}
+		}
+		form task_management
+		{
+			displayname = "Task Management"
+			success message = "Task Management Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			task_title
+			(
+    			type = text
+				displayname = "Task Title"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			description
+			(
+    			type = textarea
+				displayname = "Description"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			category
+			(
+				type = picklist
+				displayname = "Category"
+				values = {"Education","Technology","Healthcare","Environment","Community","Other"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			required_skills
+			(
+				type = list	
+				displayname = "Required Skills"
+				values = {"Event Planning","Design","Translation","Gardening","Programming","First Aid","Teaching","Logistics"}
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			task_type
+			(
+				type = picklist
+				displayname = "Task Type"
+				values = {"One-time","Recurring","Event","Project-based"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			location
+			(
+    			type = address
+				displayname = "Location"
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+	     			 visibility = false
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+	     			 visibility = false
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+	     			 visibility = false
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+	     			 visibility = false
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+	     			 visibility = false
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "Latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "Longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			estimated_duration
+			(
+				type = number
+				displayname = "Estimated Duration"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			volunteer_slots
+			(
+				type = number
+				displayname = "Volunteer Slots"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			deadline
+			(
+    			type = datetime
+				displayname = "Deadline"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			task_status
+			(
+				type = picklist
+				displayname = "Task Status"
+				values = {"Completed","In Progress","Canceled","Open"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			created_by
+			(
+    			type = text
+				displayname = "Created By"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			created_date
+			(
+    			type = datetime
+				displayname = "Created Date"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form volunteer_profile
+		{
+			displayname = "Volunteer Profile"
+			success message = "Volunteer Profile Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have volunteer_name
+			(
+    			type = name
+				displayname = "Volunteer Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have email
+			(
+    			type = email
+				displayname = "Email"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have unique phone_number
+			(
+    			type = phonenumber
+				displayname = "Phone Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			address
+			(
+    			type = address
+				displayname = "Address"
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+	     			 visibility = false
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+	     			 visibility = false
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+	     			 visibility = false
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+	     			 visibility = false
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+	     			 visibility = false
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "Latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "Longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have skills
+			(
+				type = list	
+				displayname = "Skills"
+				values = {"Event Planning","Design","Translation","Gardening","Programming","First Aid","Teaching","Logistics"}
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have availability_status
+			(
+				type = picklist
+				displayname = "Availability Status"
+				values = {"On Leave","Busy","Available"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			max_slots
+			(
+				type = number
+				displayname = "Max Slots"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have joined_date
+			(
+    			type = date
+				displayname = "Joined Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			bio
+			(
+    			type = textarea
+				displayname = "Bio"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			preferred_location
+			(
+    			type = text
+				displayname = "Preferred Location"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Registration Initiated","Profile Pending Verification","Registration Rejected","Skills Verification Required","Profile Approved","Skills Verified","Skills Verification Failed","Onboarding Complete"}
+			}
+		}
+	}
+	reports
+	{
+		list task_assignment_Report
+		{
+			displayName = "All Task Assignments"
+			show all rows from task_assignment    
+			(
+				task as "Task"
+				volunteer as "Volunteer"
+				assignment_date as "Assignment Date"
+				slot_number as "Slot Number"
+				assignment_status as "Assignment Status"
+				notes as "Notes"
+				completion_date as "Completion Date"
+				feedback as "Feedback"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (assignment_status == "Assigned")
+				fields = [assignment_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (assignment_status == "Completed")
+				fields = [assignment_status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+			)
+		}
+		kanban task_assignment_by_assignment_status
+		{
+			displayName = "Assignment Statuses"
+			show all rows from task_assignment    
+			(
+				task as "Task"
+				volunteer as "Volunteer"
+				assignment_date as "Assignment Date"
+				slot_number as "Slot Number"
+				assignment_status as "Assignment Status"
+				notes as "Notes"
+				completion_date as "Completion Date"
+				feedback as "Feedback"
+			)
+			options
+			(
+	 			display field = assignment_status
+	 		)
+		}
+		list volunteer_profile_Report
+		{
+			displayName = "All Volunteer Profiles"
+			show all rows from volunteer_profile    
+			(
+				volunteer_name  as "Volunteer Name"
+				email as "Email"
+				phone_number as "Phone Number"
+				address  as "Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				skills as "Skills"
+				availability_status as "Availability Status"
+				max_slots as "Max Slots"
+				joined_date as "Joined Date"
+				bio as "Bio"
+				preferred_location as "Preferred Location"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (availability_status == "Available")
+				fields = [availability_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (availability_status == "Busy")
+				fields = [availability_status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (availability_status == "On Leave")
+				fields = [availability_status]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban volunteer_profile_by_availability_status
+		{
+			displayName = "Availability Statuses"
+			show all rows from volunteer_profile    
+			(
+				volunteer_name  as "Volunteer Name"
+				email as "Email"
+				phone_number as "Phone Number"
+				address  as "Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				skills as "Skills"
+				availability_status as "Availability Status"
+				max_slots as "Max Slots"
+				joined_date as "Joined Date"
+				bio as "Bio"
+				preferred_location as "Preferred Location"
+			)
+			options
+			(
+	 			display field = availability_status
+	 		)
+		}
+		list task_management_Report
+		{
+			displayName = "All Task Management"
+			show all rows from task_management    
+			(
+				task_title as "Task Title"
+				description as "Description"
+				category as "Category"
+				required_skills as "Required Skills"
+				task_type as "Task Type"
+				location  as "Location"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				estimated_duration as "Estimated Duration"
+				volunteer_slots as "Volunteer Slots"
+				deadline as "Deadline"
+				task_status as "Task Status"
+				created_by as "Created By"
+				created_date as "Created Date"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (task_type == "Event")
+				fields = [task_type]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (task_type == "One-time")
+				fields = [task_type]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+			)
+		}
+		kanban task_management_by_category
+		{
+			displayName = "Categories"
+			show all rows from task_management    
+			(
+				task_title as "Task Title"
+				description as "Description"
+				category as "Category"
+				required_skills as "Required Skills"
+				task_type as "Task Type"
+				location  as "Location"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				estimated_duration as "Estimated Duration"
+				volunteer_slots as "Volunteer Slots"
+				deadline as "Deadline"
+				task_status as "Task Status"
+				created_by as "Created By"
+				created_date as "Created Date"
+			)
+			options
+			(
+	 			display field = category
+	 		)
+		}
+	}
+	pages
+	{
+		page DashBoard
+		{
+			displayname = "Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\tbgColor='#000000'\n\t\t\n\t\t\twebDeviceConfig='{\"layout\":{\"displayType\":\"card\",\"design\":\"fluid\",\"style\":\"padding-right:0px;padding-top:0px;padding-bottom:0px;padding-left:0px;\"}}'\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='28%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = 'theme'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'sport-cardio'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t\tcriteria = 'assignment_status == &quot;Assigned&quot;'\n\t  value = 'thisapp.task_assignment.assignment_status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Count of Assigned'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = 'theme'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'design-todo'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t\tcriteria = 'assignment_status == &quot;Completed&quot;'\n\t  value = 'thisapp.task_assignment.assignment_status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Count of Completed'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='24%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = 'theme'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'business-progress'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t\tcriteria = 'assignment_status == &quot;Confirmed&quot;'\n\t  value = 'thisapp.task_assignment.assignment_status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Count of Confirmed'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='23%'\n   \t>\n\t<panel elementName='Panel 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = 'theme'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'business-progress'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t\tcriteria = 'assignment_status == &quot;Cancelled&quot;'\n\t  value = 'thisapp.task_assignment.assignment_status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Count of Cancelled'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='40%'\n   \t>\n\t<chart \n\telementName='Chart 1'\n\n\t\n\ttitle = 'Volunteer Slots by Estimated Duration'\n\t\n\t\ttitleColor = '#222326'\n\ttype = 'Scatter'\n\txtitle = 'Volunteer Slots'\n\tytitle = 'Estimated Duration'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'none'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'task_management'\n\txfield = 'volunteer_slots'\n\tyfields = 'value:estimated_duration'\n\tgroupBy = 'task_title'\n\t\tDelugeCriteria = 'volunteer_slots is not null'\n/>\n\n</column><column\n   \t\t width='35%'\n   \t>\n\t<panel elementName='Grouped_Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tcolor = '#000000'\n\tsize = '16px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Availability Status'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '17px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '50%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '2px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'media-1-button-power'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'availability_status == &quot;On Leave&quot;'\n\t  value = 'thisapp.volunteer_profile.availability_status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'On Leave'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '17px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '17px'\n\tpaddingBottom = '17px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '50%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'shopping-wallet'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'availability_status == &quot;Busy&quot;'\n\t  value = 'thisapp.volunteer_profile.availability_status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Busy'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '17px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '50%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '2px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'tech-ram'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'availability_status == &quot;Available&quot;'\n\t  value = 'thisapp.volunteer_profile.availability_status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Available'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '17px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '17px'\n\tpaddingBottom = '17px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '50%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'travel-world'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.volunteer_profile.availability_status.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Total'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel_Button 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\n\t  value = 'Quick Links'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '0px'\n\tpaddingLeft = '10px'\n\tpaddingRight = '10px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'task_assignment'\n\t\ttarget = 'new-window'\n\n\tmarginLeft = '12px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'Add New Task Assignment'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\tpadding = '8px'\n\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'volunteer_profile'\n\t\ttarget = 'new-window'\n\n\tmarginLeft = '12px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'Add New Volunteer Profile'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\tpadding = '8px'\n\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'task_management'\n\t\ttarget = 'new-window'\n\n\tmarginLeft = '12px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'Add New Task Management'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\tpadding = '8px'\n\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n    action = 'OpenReport'\n\t\tcomponentLinkName = 'task_assignment_Report'\n\t\ttarget = 'new-window'\n\n\tmarginLeft = '12px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'Show All Task Assignments'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Chart 2'\n\n\t\n\ttitle = 'Task Status by Volunteer Slots'\n\t\n\t\ttitleColor = '#222326'\n\ttype = 'Stacked Column'\n\txtitle = 'Task Status'\n\tytitle = 'Volunteer Slots'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'task_management'\n\txfield = 'task_status'\n\tyfields = 'sum:volunteer_slots'\n\tgroupBy = 'task_type'\n\t\tDelugeCriteria = 'task_status is not null &amp;&amp; task_status != &quot;&quot;'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'task_assignment_Report'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='dashboard_title_bar.title-bar.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '12px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Welcome to'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Micro-Volunteer Task Manager'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '13px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Track and manage volunteer tasks efficiently'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='dashboard_kpi_strip.kpi-strip.outlined.comfortable'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = '#FFFFFF'\n\n    borderColor = '#F0F0F0'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '8px'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '24px'\n\tpaddingLeft = '24px'\n\tpaddingRight = '24px'\n\tpaddingBottom = '24px'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\n\t\twidth = '33.33%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'VOLUNTEERS'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.volunteer_profile.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\n\t\twidth = '33.33%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'TASKS'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.task_management.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\n\t\twidth = '33.34%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#575757'\n\tsize = '11px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'ASSIGNMENTS'\n>\n</text>\n\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='6px'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n>\n\t\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<text \n\n\tcolor = '#1C1C1C'\n\tsize = '24px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.task_assignment.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart'\n\n\t\n\ttitle = 'Assignment Status Distribution'\n\t\n\ttype = 'Pie'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'task_assignment'\n\txfield = 'assignment_status'\n\tyfields = 'count:ID'\n/>\n\n</column><column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart 3'\n\n\t\n\ttitle = 'Tasks by Category'\n\t\n\ttype = 'Column'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'task_management'\n\txfield = 'category'\n\tyfields = 'count:ID'\n/>\n\n</column>\n</row>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart 4'\n\n\t\n\ttitle = 'Volunteer Availability'\n\t\n\ttype = 'Donut'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'volunteer_profile'\n\txfield = 'availability_status'\n\tyfields = 'count:ID'\n/>\n\n</column><column\n   \t\t width='50%'\n   \t>\n\t<board\n    \n\tbgColor = '#FFFFFF'\n        bgColorType = 'solid'\n\tpadding = '0px'\nelementName='Board'\n    layoutType = 'carousel'\n    appLinkName = 'thisapp'\n    formLinkName = 'task_assignment'\n    rankBy = 'ID'\n    rankOrder = 'highestToLowest'\n    rankAggregate = 'count'\n    limit = '5'\n    groupBy = 'volunteer'\n>\n<boardHeader>\n    <pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '14px'\n\tpaddingLeft = '15px'\n\tpaddingRight = '15px'\n\tpaddingBottom = '14px'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#000000'\n\tsize = '15px'\n\tbold = 'true' \n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Top Volunteers by Assignments'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</boardHeader>\n<boardLayout\n                paddingRight = '15px'\n                paddingBottom = '14px'\n                paddingLeft = '15px'\n                paddingTop = '2px'\n                itemGap = '10px'\n>\n    <pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '10px'\n\n    borderColor = '#F2F2F2'\n    borderWidth = '1px'\n\t\twidth = '100%'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '12px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginBottom = '15px'\n\n\tcolor = '#000000'\n\tbgColor = '#F7F7FB'\n\twidth = '48px'\n\theight = '48px'\n\ttype = 'icon'\n\tvalue = 'media-1-ticket-76'\n\tsize = '20px'\n\tcornerRadius = '24px'\n\ticonType = 'outline'\n/>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginBottom = '15px'\n\tcolor = '#000000'\n\tsize = '19px'\n\tbold = 'true' \n\ttype = 'boardData'\n\n\n    lineHeight = '26'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'rank'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginBottom = '15px'\n\tcolor = '#000000'\n\tsize = '16px'\n\ttype = 'boardData'\n\n\n    lineHeight = '22'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'groupedField'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = 'theme'\n\tsize = '17px'\n\tbold = 'true' \n\ttype = 'boardData'\n\n\n    lineHeight = '23'\n    numOfLines = '1'\n\n\n\n\n\n\t  value = 'rankAggregate'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</boardLayout>\n</board>\n</column>\n</row>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<gauge \n\telementName='Gauge'\n\n\t\n\ttitle = 'Task Completion Rate'\n\t\n\tcolor = '#000000'\n\tsize = '20px'\n\tfontFamily = 'default' \n\tbgColor = '#ffffff'\n\ttheme = '#FF7B19'\n\tdisplayType = 'actual'\n\ttype = '2'\n\tfilledColor = 'theme'\n\tnonFilledColor = '#F5F5F5'\n\tneedleColor = '#000000'\n\ttargetColor = '#D8D8D8'\n\tvalue = 'thisapp.task_assignment.ID.count'\n>\n<target size=\"15px\" color=\"#7F7F7F\" fontFamily=\"default\" value=\"100\"\n/><maximumvalue size=\"15px\" color=\"#7F7F7F\" value=\"100\" \n/>\n</gauge>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+	chats
+	{
+		chat AI_Volunteer_Assistant
+		{
+			display name = "VolunBot"
+			access level = read_write
+			instructions
+			(
+				value = "You are the AI Volunteer Assistant for the Micro Volunteer Task Manager application. Your primary role is to assist volunteers by helping them find available tasks, explaining requirements, and checking their application status. \n\nYou must use the Task_Management and Volunteer_Profile modules to retrieve and interact with data. \n\nYour responses should be friendly, clear, and concise. \n\nStrictly adhere to the following security and privacy rules:\n1. Only allow volunteers to access their own permitted information.\n2. Do not approve tasks or modify records unless explicitly authorized by a system admin (which you are not).\n3. Never expose private information belonging to other volunteers.\n4. If a user asks for unauthorized actions or data, politely decline and explain the restriction.\n5. Focus on read operations and guiding users on how to proceed within the application's standard workflows."
+			)
+			personalization
+			(
+				welcome message = "Hello! I'm your AI Volunteer Assistant. I can help you find tasks, check your status, and answer questions about volunteering. How can I assist you today?"
+			)
+			forms
+			(
+				volunteer_profile
+				task_management
+			)
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			auto_assign_volunteer_slots as "Auto-Assign Volunteer Slots"
+			{
+				type =  form
+				form = task_assignment
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the last task assignment record to determine the next slot number
+										lastAssignment = task_assignment[assignment_status == "Assigned" || assignment_status == "Confirmed"] sort by slot_number range from 0 to 1;
+										// Initialize next slot number to 1 if no assignments exist
+										nextSlotNumber = 1;
+										if(lastAssignment.count() > 0)
+										{
+											// Get the highest slot number from existing assignments
+											highestSlot = lastAssignment.slot_number;
+											// Set next slot number as highest + 1
+											nextSlotNumber = highestSlot + 1;
+										}
+										// Set the slot number field in the form
+										input.slot_number = nextSlotNumber;
+						)
+					}
+				}
+
+			}
+			validate_skill_match as "Validate Skill Match"
+			{
+				type =  form
+				form = task_assignment
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the task record using the lookup field from input
+										if(input.task.isNull())
+										{
+											alert "Task is not selected. Please select a valid task.";
+											cancel submit;
+										}
+										taskRecord = task_management[ID == input.task];
+										// Fetch the volunteer records using the multi-select lookup field
+										if(input.volunteer.isEmpty())
+										{
+											alert "No volunteers selected. Please select at least one volunteer.";
+											cancel submit;
+										}
+										volunteerRecords = volunteer_profile[ID in input.volunteer];
+										// Get the required skills from the task
+										requiredSkills = taskRecord.required_skills;
+										// Flag to track if any volunteer has matching skills
+										hasMatchingVolunteer = false;
+										// Iterate through each selected volunteer to check skill match
+										for each  volunteer in volunteerRecords
+										{
+											volunteerSkills = input.volunteer.skills;
+											// Check if volunteer has at least one of the required skills
+											for each  requiredSkill in requiredSkills
+											{
+												if(volunteerSkills.contains(requiredSkill))
+												{
+													hasMatchingVolunteer = true;
+													break;
+												}
+											}
+											// If we found a matching volunteer, we can stop checking
+											if(hasMatchingVolunteer)
+											{
+												break;
+											}
+										}
+										// If no volunteer has matching skills, cancel submission
+										if(!hasMatchingVolunteer)
+										{
+											alert "None of the selected volunteers have the required skills for this task. Please select volunteers with matching skills.";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			notify_on_task_completion as "Notify on Task Completion"
+			{
+				type =  form
+				form = task_assignment
+
+				record event = on edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the task record using the lookup field from task_assignment form
+										taskRecord = task_management[ID == input.task];
+										// Check if task status is Completed
+										if(taskRecord.task_status == "Completed")
+										{
+											// Get volunteer details from multi-select lookup
+											for each  volunteer in input.volunteer
+											{
+												// Fetch volunteer profile record
+												volunteerRecord = volunteer_profile[ID == input.volunteer];
+												// Get volunteer email
+												Email = volunteerRecord.email;
+												// Get task title
+												taskTitle = taskRecord.task_title;
+												// Send email notification to volunteer
+												sendmail
+												[
+													from :zoho.loginuserid
+													to :Email
+													subject :"Task Completed: " + taskTitle
+													message :"Dear " + volunteerRecord.volunteer_name.first_name + ",\n\nYour assigned task '" + taskTitle + "' has been completed.\n\nThank you for your contribution!\n\nBest regards,\nMicro Volunteer Task Manager"
+												]
+											}
+										}
+						)
+					}
+				}
+
+			}
+			send_welcome_email_on_volunteer_registration as "Send Welcome Email on Volunteer Registration"
+			{
+				type =  form
+				form = volunteer_profile
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the volunteer's email from the current input
+										volunteerEmail = input.email;
+										// Check if email is available before sending
+										if(!volunteerEmail.isNull())
+										{
+											// Send email notification to the volunteer
+											sendmail
+											[
+												from :zoho.adminuserid
+												to :volunteerEmail
+												subject :"Welcome to the Volunteer Network"
+												message :"<p>Dear Volunteer,</p><p>Your profile has been successfully created. We are excited to have you on board!</p><p>Best regards,<br>Task Management Team</p>"
+											]
+										}
+										else
+										{
+											// Log if email is missing
+											info "Email address is missing for the new volunteer profile.";
+										}
+						)
+					}
+				}
+
+			}
+			notify_volunteers_on_task_completion as "Notify Volunteers on Task Completion"
+			{
+				type =  form
+				form = task_assignment
+
+				record event = on edit
+
+				on update of assignment_status
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Fetch the task assignment record being updated
+										assignmentRecord = task_assignment[ID == input.ID];
+										// Check if assignment status is updated to Completed
+										if(input.assignment_status == "Completed")
+										{
+											// Fetch the related task record to check its status
+											taskID = assignmentRecord.task.ID;
+											taskRecord = task_management[ID == taskID];
+											// Check if the task is also marked as Completed
+											if(taskRecord.task_status == "Completed")
+											{
+												// Fetch all volunteers assigned to this assignment
+												volunteerList = assignmentRecord.volunteer;
+												// Iterate through each volunteer and send email
+												for each  volunteer in volunteerList
+												{
+													Email = input.volunteer.email;
+													volunteerName = input.volunteer.volunteer_name.first_name;
+													taskTitle = taskRecord.task_title;
+													if(!isNull(Email))
+													{
+														sendmail
+														[
+															from :zoho.adminuserid
+															to :Email
+															subject :"Task Assignment Completed: " + taskTitle
+															message :"<p>Dear " + volunteerName + ",</p><p>Your task assignment for '" + taskTitle + "' has been marked as Completed.</p><p>Thank you for your contribution!</p>"
+														]
+													}
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+		blueprint
+		{
+    			task_assignment_workflow as "Task Assignment Workflow"
+    			{
+        			type = Blueprint
+        			form = task_assignment
+        			start
+        			{
+            			start stage = "Assignment Draft"
+        			}
+        			stages
+        			{
+           			"Assignment Draft"
+           			{
+           			}
+           			"Pending Volunteer Selection"
+           			{
+           			}
+           			"Assignment Cancelled"
+           			{
+           			}
+           			"Volunteers Assigned"
+           			{
+           			}
+           			"Task In Progress"
+           			{
+           			}
+           			"Task Completed"
+           			{
+           			}
+           			"Task On Hold"
+           			{
+           			}
+           			"Pending Feedback"
+           			{
+           			}
+           			"Assignment Closed"
+           			{
+           			}
+        			}
+        			transitions
+        			{
+    				assign_volunteers as "Assign Volunteers"
+    				{
+         				type = normal
+         				from stage = "Pending Volunteer Selection"
+         				to stage = "Volunteers Assigned"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				cancel_assignment as "Cancel Assignment"
+    				{
+         				type = normal
+         				from stage = "Assignment Draft"
+         				to stage = "Assignment Cancelled"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				complete_exception as "Mark Task as Completed (Exception)"
+    				{
+         				type = normal
+         				from stage = "Task On Hold"
+         				to stage = "Task Completed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				finalize_assignment as "Finalize Assignment"
+    				{
+         				type = normal
+         				from stage = "Pending Feedback"
+         				to stage = "Assignment Closed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				mark_completed as "Mark Task as Completed"
+    				{
+         				type = normal
+         				from stage = "Task In Progress"
+         				to stage = "Task Completed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				pause_task as "Pause Task"
+    				{
+         				type = normal
+         				from stage = "Task In Progress"
+         				to stage = "Task On Hold"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reassign_volunteers as "Reassign Volunteers"
+    				{
+         				type = normal
+         				from stage = "Volunteers Assigned"
+         				to stage = "Pending Volunteer Selection"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reopen_task as "Reopen Task"
+    				{
+         				type = normal
+         				from stage = "Task Completed"
+         				to stage = "Task In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_feedback as "Request Additional Feedback"
+    				{
+         				type = normal
+         				from stage = "Pending Feedback"
+         				to stage = "Task Completed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_reassignment as "Request Volunteer Reassignment"
+    				{
+         				type = normal
+         				from stage = "Task In Progress"
+         				to stage = "Volunteers Assigned"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				resume_task as "Resume Task"
+    				{
+         				type = normal
+         				from stage = "Task On Hold"
+         				to stage = "Task In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				revert_to_draft as "Revert to Draft"
+    				{
+         				type = normal
+         				from stage = "Pending Volunteer Selection"
+         				to stage = "Assignment Draft"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				start_task as "Start Task Execution"
+    				{
+         				type = normal
+         				from stage = "Volunteers Assigned"
+         				to stage = "Task In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				submit_completion as "Submit Completion Details"
+    				{
+         				type = normal
+         				from stage = "Task Completed"
+         				to stage = "Pending Feedback"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				submit_draft as "Submit Assignment Draft"
+    				{
+         				type = normal
+         				from stage = "Assignment Draft"
+         				to stage = "Pending Volunteer Selection"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+        			}
+    			}
+    			volunteer_onboarding_process as "Volunteer Onboarding Process"
+    			{
+        			type = Blueprint
+        			form = volunteer_profile
+        			start
+        			{
+            			start stage = "Registration Initiated"
+        			}
+        			stages
+        			{
+           			"Registration Initiated"
+           			{
+           			}
+           			"Profile Pending Verification"
+           			{
+           			}
+           			"Registration Rejected"
+           			{
+           			}
+           			"Skills Verification Required"
+           			{
+           			}
+           			"Profile Approved"
+           			{
+           			}
+           			"Skills Verified"
+           			{
+           			}
+           			"Skills Verification Failed"
+           			{
+           			}
+           			"Onboarding Complete"
+           			{
+           			}
+        			}
+        			transitions
+        			{
+    				approve_profile as "Approve Profile"
+    				{
+         				type = normal
+         				from stage = "Profile Pending Verification"
+         				to stage = "Profile Approved"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				close_rejection as "Close Registration"
+    				{
+         				type = normal
+         				from stage = "Skills Verification Failed"
+         				to stage = "Registration Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				complete_onboarding as "Complete Onboarding"
+    				{
+         				type = normal
+         				from stage = "Profile Approved"
+         				to stage = "Onboarding Complete"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				confirm_skills as "Confirm Skills"
+    				{
+         				type = normal
+         				from stage = "Skills Verification Required"
+         				to stage = "Skills Verified"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				fail_skills as "Mark Skills as Unverified"
+    				{
+         				type = normal
+         				from stage = "Skills Verification Required"
+         				to stage = "Skills Verification Failed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				finalize_approval as "Finalize Approval"
+    				{
+         				type = normal
+         				from stage = "Skills Verified"
+         				to stage = "Profile Approved"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_profile as "Reject Incomplete Profile"
+    				{
+         				type = normal
+         				from stage = "Registration Initiated"
+         				to stage = "Registration Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reopen_profile as "Re-open for Updates"
+    				{
+         				type = normal
+         				from stage = "Profile Approved"
+         				to stage = "Profile Pending Verification"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_info as "Request Additional Information"
+    				{
+         				type = normal
+         				from stage = "Skills Verification Required"
+         				to stage = "Profile Pending Verification"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_resubmission as "Request Resubmission"
+    				{
+         				type = normal
+         				from stage = "Skills Verification Failed"
+         				to stage = "Profile Pending Verification"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_verification as "Request Skill Verification"
+    				{
+         				type = normal
+         				from stage = "Profile Pending Verification"
+         				to stage = "Skills Verification Required"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				submit_profile as "Submit Profile for Review"
+    				{
+         				type = normal
+         				from stage = "Registration Initiated"
+         				to stage = "Profile Pending Verification"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+        			}
+    			}
+		}
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			"Volunteer"
+			{
+				name = "Volunteer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Browse available tasks and apply for slots matching their skills \n"
+				ModulePermissions
+				{
+					task_management
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							task_management_by_category={"View"}
+							task_management_Report={"View"}
+						}
+					}
+					task_assignment
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							task_assignment_Report={"View"}
+							task_assignment_by_assignment_status={"View"}
+						}
+					}
+					volunteer_profile
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							volunteer_profile_Report={"View","Edit"}
+							volunteer_profile_by_availability_status={"View","Edit"}
+						}
+					}
+				}
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			image = "image_1794317957897.jpg"
+		}
+	}
+
+	web
+	{
+		forms
+		{
+			form task_assignment
+			{
+				label placement = left
+			}
+			form task_management
+			{
+				label placement = left
+			}
+			form volunteer_profile
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report task_assignment_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								task as "Task"
+								volunteer as "Volunteer"
+								assignment_date as "Assignment Date"
+								slot_number as "Slot Number"
+								assignment_status as "Assignment Status"
+								notes as "Notes"
+								completion_date as "Completion Date"
+								feedback as "Feedback"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								task as "Task"
+								volunteer as "Volunteer"
+								assignment_date as "Assignment Date"
+								slot_number as "Slot Number"
+								assignment_status as "Assignment Status"
+								notes as "Notes"
+								completion_date as "Completion Date"
+								feedback as "Feedback"
+							)
+						)
+						datablock2
+						(
+		     				title = "Task"
+		     				related field = task
+							fields
+							(
+								task_title as "Task Title"
+								description as "Description"
+								category as "Category"
+								required_skills as "Required Skills"
+								task_type as "Task Type"
+								location as "Location"
+								estimated_duration as "Estimated Duration"
+								volunteer_slots as "Volunteer Slots"
+								deadline as "Deadline"
+								task_status as "Task Status"
+								created_by as "Created By"
+								created_date as "Created Date"
+							)
+						)
+						datablock3
+						(
+		     				title = "Volunteer"
+		     				related field = volunteer
+							fields
+							(
+								volunteer_name as "Volunteer Name"
+								email as "Email"
+								phone_number as "Phone Number"
+								address as "Address"
+								skills as "Skills"
+								availability_status as "Availability Status"
+								max_slots as "Max Slots"
+								joined_date as "Joined Date"
+								bio as "Bio"
+								preferred_location as "Preferred Location"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report task_assignment_by_assignment_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								task as "Task"
+								volunteer as "Volunteer"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								task as "Task"
+								volunteer as "Volunteer"
+								assignment_date as "Assignment Date"
+								slot_number as "Slot Number"
+								assignment_status as "Assignment Status"
+								notes as "Notes"
+								completion_date as "Completion Date"
+								feedback as "Feedback"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report volunteer_profile_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								volunteer_name as "Volunteer Name"
+								email as "Email"
+								phone_number as "Phone Number"
+								address as "Address"
+								skills as "Skills"
+								availability_status as "Availability Status"
+								max_slots as "Max Slots"
+								joined_date as "Joined Date"
+								bio as "Bio"
+								preferred_location as "Preferred Location"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								volunteer_name as "Volunteer Name"
+								email as "Email"
+								phone_number as "Phone Number"
+								address as "Address"
+								skills as "Skills"
+								availability_status as "Availability Status"
+								max_slots as "Max Slots"
+								joined_date as "Joined Date"
+								bio as "Bio"
+								preferred_location as "Preferred Location"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report volunteer_profile_by_availability_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								volunteer_name as "Volunteer Name"
+								preferred_location as "Preferred Location"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								volunteer_name as "Volunteer Name"
+								email as "Email"
+								phone_number as "Phone Number"
+								address as "Address"
+								skills as "Skills"
+								availability_status as "Availability Status"
+								max_slots as "Max Slots"
+								joined_date as "Joined Date"
+								bio as "Bio"
+								preferred_location as "Preferred Location"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report task_management_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								task_title as "Task Title"
+								description as "Description"
+								category as "Category"
+								required_skills as "Required Skills"
+								task_type as "Task Type"
+								location as "Location"
+								estimated_duration as "Estimated Duration"
+								volunteer_slots as "Volunteer Slots"
+								deadline as "Deadline"
+								task_status as "Task Status"
+								created_by as "Created By"
+								created_date as "Created Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								task_title as "Task Title"
+								description as "Description"
+								category as "Category"
+								required_skills as "Required Skills"
+								task_type as "Task Type"
+								location as "Location"
+								estimated_duration as "Estimated Duration"
+								volunteer_slots as "Volunteer Slots"
+								deadline as "Deadline"
+								task_status as "Task Status"
+								created_by as "Created By"
+								created_date as "Created Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report task_management_by_category
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								task_title as "Task Title"
+								created_by as "Created By"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								task_title as "Task Title"
+								description as "Description"
+								category as "Category"
+								required_skills as "Required Skills"
+								task_type as "Task Type"
+								location as "Location"
+								estimated_duration as "Estimated Duration"
+								volunteer_slots as "Volunteer Slots"
+								deadline as "Deadline"
+								task_status as "Task Status"
+								created_by as "Created By"
+								created_date as "Created Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Section_1
+				{
+					displayname = "Dashboard"
+					icon = "ui-1-dashboard-half"
+					page DashBoard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+				section Section_2
+				{
+					displayname = "Task Assignments"
+					icon = "design-todo"
+					form  task_assignment
+					{
+						icon = "ui-1-bold-add"
+					}
+					report task_assignment_Report
+					{
+						icon = "design-todo"
+					}
+					report task_assignment_by_assignment_status
+					{
+						icon = "design-2-selection"
+					}
+				}
+				section Section_3
+				{
+					displayname = "Volunteer Profiles"
+					icon = "media-1-focus-32"
+					form  volunteer_profile
+					{
+						icon = "ui-1-bold-add"
+					}
+					report volunteer_profile_Report
+					{
+						icon = "travel-world"
+					}
+					report volunteer_profile_by_availability_status
+					{
+						icon = "shopping-tag-sale"
+					}
+				}
+				section Section_4
+				{
+					displayname = "Task Management"
+					icon = "design-todo"
+					form  task_management
+					{
+						icon = "ui-1-bold-add"
+					}
+					report task_management_Report
+					{
+						icon = "design-todo"
+					}
+					report task_management_by_category
+					{
+						icon = "design-2-selection"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section AI_Agents
+				{
+					displayname = "AI Agents"
+					icon = "ui-2-chat-content"
+					chat AI_Volunteer_Assistant
+					{
+						icon = "holidays-sickle"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = solid
+					show = {space,section,component}
+				}
+			}
+		}
+		customize
+		{
+			layout
+			{
+				theme = "theme_4"
+			}
+			font = "lato"
+			color options
+			{
+				name = "custom_color_1"
+				brand color = "#ff0000"
+				navigation background color = "#000000"
+				type = "custom"
+			}
+			logo
+			{
+				preference = "none"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				type = "custom"
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				type = "custom"
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
